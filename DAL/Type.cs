@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class Type
+    public class Type
     {
         public int TypeCode { get; set; }
-       public string TypeDesc { get; set; }
+        public string TypeDesc { get; set; }
         public Type()
         {
 

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class Bottle
+    public class Bottle
     {
         public Brand Brand { get; set; }
-        public string Barcode { get; set; }
+        public int Barcode { get; set; }
         public string Name { get; set; }
         public string Age { get; set; }
         public double Price { get; set; }
@@ -23,7 +23,7 @@ namespace DAL
 
         }
 
-        public Bottle(Brand brand, string barcode, string name, string age, double price, Type type, Taste taste, string image, double aBV, string description)
+        public Bottle(Brand brand, int barcode, string name, string age, double price, Type type, Taste taste, string image, double aBV, string description)
         {
             Brand = brand;
             Barcode = barcode;

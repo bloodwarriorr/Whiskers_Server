@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class Taste
+    public class Taste
     {
         public int TasteCode { get; set; }
-        public int Sweet { get; set; }
-        public int Floral { get; set; }
-        public int Fruit { get; set; }
-        public int Body { get; set; }
-        public int Richness { get; set; }
-        public int Smoke { get; set; }
-        public int Wine { get; set; }
+        public byte Sweet { get; set; }
+        public byte Floral { get; set; }
+        public byte Fruit { get; set; }
+        public byte Body { get; set; }
+        public byte Richness { get; set; }
+        public byte Smoke { get; set; }
+        public byte Wine { get; set; }
         public Taste()
         {
 
         }
 
-        public Taste(int tasteCode, int sweet, int floral, int fruit, int body, int richness, int smoke, int wine)
+        public Taste(int tasteCode, byte sweet, byte floral, byte fruit, byte body, byte richness, byte smoke, byte wine)
         {
             TasteCode = tasteCode;
             Sweet = sweet;

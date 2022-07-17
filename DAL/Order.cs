@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class Order
+    public class Order
     {
         public Order_Item Items { get; set; }
         public DateTime DateTime { get; set; }

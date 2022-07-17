@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class Brand
+    public class Brand
     {
        public int BrandCode{ get; set; }
        public string Name{ get; set; }

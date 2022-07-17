@@ -48,7 +48,7 @@
     </Compile>
     <Compile Include="Bottle.cs" />
     <Compile Include="Brand.cs" />
-    <Compile Include="DALWhiskers.cs" />
+    <Compile Include="DALUsers.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Order_Item.cs" />
@@ -62,6 +62,7 @@
     <Compile Include="Taste.cs" />
     <Compile Include="Type.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserLoginDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

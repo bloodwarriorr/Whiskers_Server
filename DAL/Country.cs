@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class Country
+    public class Country
     {
         public int CountryCode { get; set; }
         public string Name { get; set; }

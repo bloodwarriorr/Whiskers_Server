@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class Order_Item
+    public class Order_Item
     {
        public List<Bottle>Bottles { get; set; }
        public List<int> Qty { get; set; }
