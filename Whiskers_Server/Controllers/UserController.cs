@@ -65,5 +65,26 @@ namespace Whiskers_Server.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [Route("api/User/order")]
+        public IHttpActionResult PostOrder([FromBody]NewOrder order)
+        {
+            
+            try
+            {
+                bool result = BLLUsers.BuyCart(order);
+                if (!result)
+                {
+                    return Content(HttpStatusCode.NotFound, $"Cant add an order, check your fields!");
+                }
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
     }
 }

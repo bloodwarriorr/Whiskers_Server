@@ -25,6 +25,9 @@ namespace BAL
             //code security/ roles / algorithm / 
             return DALUsers.GetOrdersAction(userId);
         }
-        
+        public static bool BuyCart(NewOrder order) { 
+
+            return DALUsers.AddOrderAction(order);
+        }
     }
 }

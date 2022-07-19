@@ -50,6 +50,7 @@
     <Compile Include="Brand.cs" />
     <Compile Include="DALUsers.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="NewOrder.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Order_Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
