@@ -5,12 +5,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace DAL
 {
     public static class DALUsers
     {
-        static string strCon = @"Data Source=sql.bsite.net\MSSQL2016;Initial Catalog=bloodwarrior3_;Persist Security Info=True;User ID=bloodwarrior3_;Password=Aa1234$";
+       static string strCon =
+           ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        
+        //static string strCon = @"Data Source=sql.bsite.net\MSSQL2016;Initial Catalog=bloodwarrior3_;Persist Security Info=True;User ID=bloodwarrior3_;Password=Aa1234$";
         static SqlConnection con;
         static string sqlString;
         static SqlCommand command;
