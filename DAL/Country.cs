@@ -9,7 +9,7 @@ namespace DAL
     public class Country
     {
         public int CountryCode { get; set; }
-        public string Name { get; set; }
+        public string CountryName { get; set; }
         public Country()
         {
 
@@ -18,7 +18,7 @@ namespace DAL
         public Country(int countryCode, string name)
         {
             CountryCode = countryCode;
-            Name = name;
+            CountryName = name;
         }
     }
 }

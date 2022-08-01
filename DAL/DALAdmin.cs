@@ -31,7 +31,7 @@ namespace DAL
                 command.Parameters.AddWithValue("@barcode", bottle.Barcode);
                 command.Parameters.AddWithValue("@price", bottle.Price);
                 command.Parameters.AddWithValue("@brand_code", bottle.Brand.BrandCode);
-                command.Parameters.AddWithValue("@name", bottle.Name + " " + bottle.Brand.Name);
+                command.Parameters.AddWithValue("@name", bottle.BottleName + " " + bottle.Brand.BrandName);
                 command.Parameters.AddWithValue("@type_code", bottle.Type.TypeCode);
                 command.Parameters.AddWithValue("@image", bottle.Image);
                 command.Parameters.AddWithValue("@abv", bottle.ABV);
@@ -115,7 +115,7 @@ namespace DAL
                 command.Parameters.AddWithValue("@barcode", bottle.Barcode);
                 command.Parameters.AddWithValue("@price", bottle.Price);
                 command.Parameters.AddWithValue("@brand_code", bottle.Brand.BrandCode);
-                command.Parameters.AddWithValue("@name", bottle.Name + " " + bottle.Brand.Name);
+                command.Parameters.AddWithValue("@name", bottle.BottleName + " " + bottle.Brand.BrandName);
                 command.Parameters.AddWithValue("@type_code", bottle.Type.TypeCode);
                 command.Parameters.AddWithValue("@image", bottle.Image);
                 command.Parameters.AddWithValue("@abv", bottle.ABV);
@@ -139,7 +139,7 @@ namespace DAL
 
 
         }
-        ///
+        ///get all users with each of user orders
         public static IEnumerable<UserSummary> GetAllUsers()
         {
             SqlDataReader reader = null;
@@ -181,6 +181,7 @@ namespace DAL
             return null;
 
         }
+        //get orders by user id
         public static IEnumerable<Order> GetOrdersActionPerUser(int userId)
         {
             
@@ -253,7 +254,7 @@ namespace DAL
             }
             return null;
         }
-
+        //get all orders of all users
         public static IEnumerable<DetailedOrder> GetAllOrdersByUser() {
             SqlDataReader reader = null;
             List<DetailedOrder> ordersSummary = new List<DetailedOrder>();

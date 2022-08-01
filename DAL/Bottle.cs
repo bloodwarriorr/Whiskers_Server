@@ -10,7 +10,7 @@ namespace DAL
     {
         public Brand Brand { get; set; }
         public int Barcode { get; set; }
-        public string Name { get; set; }
+        public string BottleName { get; set; }
         public string Age { get; set; }
         public double Price { get; set; }
         public Type Type { get; set; }
@@ -27,7 +27,7 @@ namespace DAL
         {
             Brand = brand;
             Barcode = barcode;
-            Name = name;
+            BottleName = name;
             Age = age;
             Price = price;
             Type = type;

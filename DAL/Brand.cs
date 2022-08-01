@@ -9,7 +9,7 @@ namespace DAL
     public class Brand
     {
        public int BrandCode{ get; set; }
-       public string Name{ get; set; }
+       public string BrandName{ get; set; }
        public Region Region{ get; set; }
         public Brand()
         {
@@ -19,7 +19,7 @@ namespace DAL
         public Brand(int brandCode, string name, Region region)
         {
             BrandCode = brandCode;
-            Name = name;
+            BrandName = name;
             Region = region;
         }
     }

@@ -9,7 +9,7 @@ namespace DAL
     public class Region
     {
         public int RegionCode { get; set; }
-        public string Name { get; set; }
+        public string RegionName { get; set; }
         public Country Country { get; set; }
         public Region()
         {
@@ -19,7 +19,7 @@ namespace DAL
         public Region(int regionCode, string name, Country country)
         {
             RegionCode = regionCode;
-            Name = name;
+            RegionName = name;
             Country = country;
         }
     }
