@@ -18,6 +18,7 @@ namespace DAL
         public double UserTotalSpent { get; set; }
         public List<Order> UserOrders { get; set; }
 
+        public UserSummary() { }
         public UserSummary(int userId, string userEmail, string userFirstName, string userLastName, int userTotalItemsPurchased, double userTotalSpent)
         {
             UserId = userId;

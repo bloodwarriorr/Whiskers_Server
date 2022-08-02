@@ -55,6 +55,7 @@ namespace DAL
         {
 
             SqlDataReader reader = null;
+            User user;
             try
             {
                 con.Open();
@@ -65,18 +66,27 @@ namespace DAL
                 reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    return new User()
+                    user=new User
                     {
                         Email = (string)reader["email"],
                         FirstName = (string)reader["first_name"],
                         LastName = (string)reader["last_name"],
-                        Password = (string)reader["password"]
+                        Password = (string)reader["password"],
+                        Id = (int)reader["user_id"],
+                        
+
                     };
+                    reader.Close();
+                    con.Close();
+                    user.Orders=((List<Order>)GetOrdersAction(user.Id));
+                    return user;
                 }
                 else
                 {
                     return null;
                 }
+                
+                
             }
             catch (Exception ex)
             {

@@ -48,7 +48,8 @@ namespace Whiskers_Server.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Route("{userId:int}")]
+
+        [Route("api/User/{userId:int}")]
         public IHttpActionResult Get(int userId) {
             try
             {

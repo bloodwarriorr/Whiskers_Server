@@ -10,7 +10,7 @@ namespace DAL
     {
         public int Barcode { get; set; }
         public int Amount { get; set; }
-
+        public TopRatedBottle() { }
         public TopRatedBottle(int barcode, int amount)
         {
             Barcode = barcode;

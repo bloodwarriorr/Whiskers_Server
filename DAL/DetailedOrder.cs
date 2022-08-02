@@ -15,7 +15,7 @@ namespace DAL
         public int Qty { get; set; }
         public double Total { get; set; }
         public List<Order> UserOrders { get; set; }
-
+        public DetailedOrder() { }
         public DetailedOrder(int userId, string firstName, int orderCode, DateTime orderDate, int qty, double total)
         {
             UserId = userId;
