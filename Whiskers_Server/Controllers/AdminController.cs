@@ -66,11 +66,11 @@ namespace Whiskers_Server.Controllers
         }
 
         [Route("api/Admin/UpdateBottle/{bracodeToUpdate:int}")]
-        public IHttpActionResult PutUpdateBottle([FromBody] Bottle bottle,int bracodeToUpdate)
+        public IHttpActionResult PutUpdateBottle(int bracodeToUpdate, [FromUri]double price)
         {
             try
             {
-                bool isUpdated = BLLAdmin.UpdateBottleAction(bottle, bracodeToUpdate);
+                bool isUpdated = BLLAdmin.UpdateBottleAction(price, bracodeToUpdate);
                 if (!isUpdated)
                 {
                     return Content(HttpStatusCode.NotFound, $"Failed to update bottle, please check your fields and try again.");
@@ -105,23 +105,23 @@ namespace Whiskers_Server.Controllers
             }
         }
 
-        [Route("api/Admin/UserOrders")]
-        public IHttpActionResult GetUserOrders()
-        {
-            try
-            {
-                IEnumerable<DetailedOrder> ordersSummary = BLLAdmin.GetAllOrdersPerUserAction();
-                if (ordersSummary == null)
-                {
-                    return Content(HttpStatusCode.NotFound, $"There are no orders yet!");
-                }
+        //[Route("api/Admin/UserOrders")]
+        //public IHttpActionResult GetUserOrders()
+        //{
+        //    try
+        //    {
+        //        IEnumerable<DetailedOrder> ordersSummary = BLLAdmin.GetAllOrdersPerUserAction();
+        //        if (ordersSummary == null)
+        //        {
+        //            return Content(HttpStatusCode.NotFound, $"There are no orders yet!");
+        //        }
 
-                return Ok(ordersSummary);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+        //        return Ok(ordersSummary);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message);
+        //    }
+        //}
     }
 }

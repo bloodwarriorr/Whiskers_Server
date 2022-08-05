@@ -10,13 +10,13 @@ namespace DAL
     {
         public int UserId { get; set; }
         public DateTime OrderDate { get; set; }
-        public Dictionary<string, int> Items { get; set; }
+       public List<Order_Item>Items { get; set; }
         public NewOrder()
         {
 
         }
 
-        public NewOrder(int userId, Dictionary<string, int> items)
+        public NewOrder(int userId, List<Order_Item> items)
         {
             UserId = userId;
             OrderDate = DateTime.Now;

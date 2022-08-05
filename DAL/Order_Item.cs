@@ -8,17 +8,29 @@ namespace DAL
 {
     public class Order_Item
     {
-       public List<Bottle>Bottles { get; set; }
-       public List<int> Qty { get; set; }
+        public int OrderCode { get; set; }
+        public int Barcode { get; set; }
+        public int Qty { get; set; }
+        public int BrandCode { get; set; }
+        public string BrandName { get; set; }
+        public string Bottle_Name { get; set; }
+        public double Price { get; set; }
+        public string Image { get; set; }
         public Order_Item()
         {
 
         }
 
-        public Order_Item(List<Bottle> bottles, List<int> qty)
+        public Order_Item(int orderCode, int barcode, int qty, int brandCode, string brandName, string bottle_Name, double price, string image)
         {
-            Bottles = bottles;
+            OrderCode = orderCode;
+            Barcode = barcode;
             Qty = qty;
+            BrandCode = brandCode;
+            BrandName = brandName;
+            Bottle_Name = bottle_Name;
+            Price = price;
+            Image = image;
         }
     }
 }

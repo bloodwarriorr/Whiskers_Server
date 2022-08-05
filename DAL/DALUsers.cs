@@ -66,27 +66,27 @@ namespace DAL
                 reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    user=new User
+                    user = new User
                     {
                         Email = (string)reader["email"],
                         FirstName = (string)reader["first_name"],
                         LastName = (string)reader["last_name"],
                         Password = (string)reader["password"],
                         Id = (int)reader["user_id"],
-                        
+
 
                     };
                     reader.Close();
                     con.Close();
-                    user.Orders=((List<Order>)GetOrdersAction(user.Id));
+                    user.Orders = ((List<Order>)GetOrdersAction(user.Id));
                     return user;
                 }
                 else
                 {
                     return null;
                 }
-                
-                
+
+
             }
             catch (Exception ex)
             {
@@ -107,16 +107,15 @@ namespace DAL
 
             SqlDataReader reader = null;
             List<Order> orders = new List<Order>();
-            List<Bottle> bottles = new List<Bottle>();
             List<Order_Item> itemsInOrder = new List<Order_Item>();
-            List<int> qty = new List<int>();
+            Order_Item item = new Order_Item();
             int id = 0;
             DateTime date = new DateTime();
 
             try
             {
                 con.Open();
-                sqlString = "exec init_orders @userId";
+                sqlString = "exec get_order_items_by_user_id @userId";
                 command = new SqlCommand(sqlString, con);
                 command.Parameters.AddWithValue("@userId", userId);
                 reader = command.ExecuteReader();
@@ -129,37 +128,29 @@ namespace DAL
                 while (reader.Read())
                 {
 
-                    date = (DateTime)reader["date"];
                     if (id != (int)reader["order_code"])
                     {
-
-                        orders.Add(new Order(new Order_Item(bottles, qty), (DateTime)reader["date"], id));
-                        bottles = new List<Bottle>();
-                        qty = new List<int>();
+                        orders.Add(new Order(itemsInOrder, date, id));
+                        itemsInOrder = new List<Order_Item>();
                         id = (int)reader["order_code"];
+
                     }
 
-
-                    Country country = new Country((int)reader["country_code"], (string)reader["country_name"]);
-                    Region region = new Region((int)reader["region_code"], (string)reader["region_name"], country);
-                    Brand brand = new Brand((int)reader["brand_code"], (string)reader["brand_name"], region);
-                    Taste taste = new Taste((int)reader["taste_code"], (byte)reader["sweet"],
-                        (byte)reader["floral"], (byte)reader["fruit"],
-                        (byte)reader["body"], (byte)reader["richness"],
-                        (byte)reader["smoke"], (byte)reader["wine"]);
-                    Type type = new Type((int)reader["type_code"], (string)reader["type"]);
-                    bottles.Add(new Bottle(brand, (int)reader["barcode"],
-                        (string)reader["name"], (string)reader["age"],
-                        (double)reader["price"], type, taste, (string)reader["image"],
-                        (double)reader["abv"], (string)reader["description"]));
-                    qty.Add((int)reader["qty"]);
-
-
+                    date = (DateTime)reader["date"];
+                    item = new Order_Item((int)reader["order_code"],
+                    (int)reader["barcode"],
+                    (int)reader["qty"],
+                    (int)reader["brand_code"],
+                    (string)reader["brand_name"],
+                    (string)reader["bottle_name"],
+                    (double)reader["price"],
+                    (string)reader["image"]);
+                    itemsInOrder.Add(item);
 
 
 
                 }
-                orders.Add(new Order(new Order_Item(bottles, qty), date, id));
+                orders.Add(new Order(itemsInOrder, date, id));
                 return orders;
 
             }
@@ -175,35 +166,36 @@ namespace DAL
             return null;
         }
 
-        //public static object AddOrderAction(int userId) { 
-        //    DateTime orderDate=DateTime.Now;
-        //    sqlString = @"exec create_order @date,@userId";
-        //    command = new SqlCommand(sqlString, con);
-        //    try
-        //    {
-        //        con.Open();
-        //        command.Parameters.AddWithValue("@userId", userId);
-        //        command.Parameters.AddWithValue("@date", orderDate);
-        //        var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
-        //        returnParameter.Direction = ParameterDirection.ReturnValue;
+        public static object AddOrderAction(int userId)
+        {
+            DateTime orderDate = DateTime.Now;
+            sqlString = @"exec create_order @date,@userId";
+            command = new SqlCommand(sqlString, con);
+            try
+            {
+                con.Open();
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@date", orderDate);
+                var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
+                returnParameter.Direction = ParameterDirection.ReturnValue;
 
-        //        command.ExecuteNonQuery();
-        //        var result = returnParameter.Value;
+                command.ExecuteNonQuery();
+                var result = returnParameter.Value;
 
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
+                return result;
+            }
+            catch (Exception ex)
+            {
 
-        //        new Exception("error with register " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //    }
-        //    return null;
+                new Exception("error with register " + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return null;
 
-        //}
+        }
         private static int GetOrderCode(DateTime orderDate, int userId)
         {
             SqlDataReader reader = null;
@@ -231,32 +223,58 @@ namespace DAL
             }
             return -1;
         }
-        private static void InsertIntoOrderItems(Dictionary<string, int> items, int order_code)
+        private static void InsertIntoOrderItems(List<Order_Item> items, int order_code)
         {
-            int index1 = 0;
-            List<string> barcodes = items.Keys.ToList();
-            sqlString = @"insert [dbo].[order_items]([order_code],[barcode],[qty]) 
-            values (@order_code,@barcode,@qty)";
+            //int index1 = 0;
+            //List<string> barcodes = items.Keys.ToList();
+            //sqlString = @"insert [dbo].[order_items]([order_code],[barcode],[qty]) 
+            //values (@order_code,@barcode,@qty)";
+            //command = new SqlCommand(sqlString, con);
+            //command.Parameters.AddWithValue("@barcode", Convert.ToInt32(barcodes[index1]));
+            //command.Parameters.AddWithValue("@qty", items[barcodes[index1]]);
+            sqlString = @"insert [dbo].[order_items]([barcode],[order_code],[qty],[brand_code],[brand_name],[bottle_name],[price],[image])
+            values(@barcode,@order_code,@qty,@brandCode,@brandName,@bottleName,@price,@image)";
+         
             command = new SqlCommand(sqlString, con);
-            command.Parameters.AddWithValue("@barcode", Convert.ToInt32(barcodes[index1]));
-            command.Parameters.AddWithValue("@qty", items[barcodes[index1]]);
+            command.Parameters.AddWithValue("@barcode", items[0].Barcode);
+            command.Parameters.AddWithValue("@order_code", order_code);
+            command.Parameters.AddWithValue("@qty", items[0].Qty);
+            command.Parameters.AddWithValue("@brandCode", items[0].BrandCode);
+            command.Parameters.AddWithValue("@brandName", items[0].BrandName);
+            command.Parameters.AddWithValue("@bottleName", items[0].Bottle_Name);
+            command.Parameters.AddWithValue("@price", items[0].Price);
+            command.Parameters.AddWithValue("@image", items[0].Image);
+           
             try
             {
-
-                command.Parameters.AddWithValue("@order_code", order_code);
-                while (index1 < barcodes.Count())
+                command.ExecuteNonQuery();
+                for (int i = 1; i < items.Count; i++)
                 {
-
-
+                    command.Parameters["@barcode"].Value= items[i].Barcode;
+                    command.Parameters["@order_code"].Value = order_code;
+                    command.Parameters["@qty"].Value = items[i].Qty;
+                    command.Parameters["@brandCode"].Value = items[i].BrandCode;
+                    command.Parameters["@brandName"].Value = items[i].BrandName;
+                    command.Parameters["@bottleName"].Value = items[i].Bottle_Name;
+                    command.Parameters["@price"].Value = items[i].Price;
+                    command.Parameters["@image"].Value = items[i].Image;
                     command.ExecuteNonQuery();
-                    index1++;
-                    if (index1 == barcodes.Count())
-                    {
-                        break;
-                    }
-                    command.Parameters["@barcode"].Value = Convert.ToInt32(barcodes[index1]);
-                    command.Parameters["@qty"].Value = items[barcodes[index1]];
                 }
+              
+                //command.Parameters.AddWithValue("@order_code", order_code);
+                //while (index1 < barcodes.Count())
+                //{
+
+
+                //    command.ExecuteNonQuery();
+                //    index1++;
+                //    if (index1 == barcodes.Count())
+                //    {
+                //        break;
+                //    }
+                //    command.Parameters["@barcode"].Value = Convert.ToInt32(barcodes[index1]);
+                //    command.Parameters["@qty"].Value = items[barcodes[index1]];
+                //}
 
 
             }

@@ -23,18 +23,18 @@ namespace BAL
             return DALAdmin.DeleteUserFromDB(userId);
         }
 
-        public static bool UpdateBottleAction(Bottle bottle, int bracode)
+        public static bool UpdateBottleAction(double price, int bracode)
         {
-            return DALAdmin.UpdateBottleInDB(bottle, bracode);
+            return DALAdmin.UpdateBottlePriceDB(price, bracode);
         }
         public static IEnumerable<UserSummary> GetAllUsersAction()
         {
             return DALAdmin.GetAllUsers();
         }
 
-        public static IEnumerable<DetailedOrder> GetAllOrdersPerUserAction()
-        {
-            return DALAdmin.GetAllOrdersByUser();
-        }
+        //public static IEnumerable<DetailedOrder> GetAllOrdersPerUserAction()
+        //{
+        //    return DALAdmin.GetAllOrdersByUser();
+        //}
     }
 }

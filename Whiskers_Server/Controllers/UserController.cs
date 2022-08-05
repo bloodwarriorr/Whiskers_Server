@@ -50,10 +50,11 @@ namespace Whiskers_Server.Controllers
         }
 
         [Route("api/User/{userId:int}")]
-        public IHttpActionResult Get(int userId) {
+        public IHttpActionResult Get(int userId)
+        {
             try
             {
-               IEnumerable<Order>orders = BLLUsers.GetOrdersByUser(userId);
+                IEnumerable<Order> orders = BLLUsers.GetOrdersByUser(userId);
                 if (orders == null)
                 {
                     return Content(HttpStatusCode.NotFound, $"user {userId} don't have any orders yet!");
