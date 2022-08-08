@@ -68,7 +68,7 @@ namespace Whiskers_Server.Controllers
                 return BadRequest(e.Message);
             }
         }
-        //buy cart of specific user
+        //buy cart of spe
         [Route("api/User/order")]
         public IHttpActionResult PostOrder([FromBody]NewOrder order)
         {

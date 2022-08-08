@@ -59,10 +59,10 @@ namespace DAL
             try
             {
                 con.Open();
-                sqlString = $"Select TOP 1 * from Users where email = @email and password = @password";
+                sqlString = $"Select TOP 1 * from Users where email = @email";
                 command = new SqlCommand(sqlString, con);
                 command.Parameters.AddWithValue("@email", details.Email);
-                command.Parameters.AddWithValue("@password", details.Password);
+                //command.Parameters.AddWithValue("@password", details.Password);
                 reader = command.ExecuteReader();
                 if (reader.Read())
                 {
