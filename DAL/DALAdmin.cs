@@ -23,7 +23,7 @@ namespace DAL
         public static bool AddBottleToDB(Bottle bottle)
         {
             sqlString = @"exec insert_bottle @brand_name,@region_code,@barcode,@price,@type_code,@image,@abv,@taste_code,@description,@age,
-            @sweet,@floral,@fruit,@body,@richness,@smoke,@wine,@bottle_name,";
+            @sweet,@floral,@fruit,@body,@richness,@smoke,@wine,@bottle_name";
             command = new SqlCommand(sqlString, con);
             try
             {
@@ -62,7 +62,7 @@ namespace DAL
 
 
         }
-
+        //optional function
         public static bool DeleteBottleFromDB(int barcode)
         {
             sqlString = @"Delete from [dbo].[Bottles] where barcode=@barcode";
@@ -86,7 +86,7 @@ namespace DAL
             }
             return false;
         }
-
+        //delete user function
         public static bool DeleteUserFromDB(int userId)
         {
             sqlString = @"Delete from [dbo].[Users] where user_id=@userId";
@@ -110,43 +110,7 @@ namespace DAL
             }
             return false;
         }
-        //update whole bottle
-        //public static bool UpdateBottleInDB(Bottle bottle, int bracode)
-        //{
-        //    sqlString = @"Update [dbo].[Bottles] set[barcode]=@barcode,[brand_code]=@brand_code,[name]=@name,[price]=@price
-        //    ,[type_code]=@type_code,[image]=@image,[abv]=@abv,[taste_code]=@taste_code,[description]=@description,[age]=@age
-        //    where barcode=@selectedBottle";
-        //    command = new SqlCommand(sqlString, con);
-        //    try
-        //    {
-        //        con.Open();
-        //        command.Parameters.AddWithValue("@barcode", bottle.Barcode);
-        //        command.Parameters.AddWithValue("@price", bottle.Price);
-        //        command.Parameters.AddWithValue("@brand_code", bottle.Brand.BrandCode);
-        //        command.Parameters.AddWithValue("@name", bottle.BottleName + " " + bottle.Brand.BrandName);
-        //        command.Parameters.AddWithValue("@type_code", bottle.Type.TypeCode);
-        //        command.Parameters.AddWithValue("@image", bottle.Image);
-        //        command.Parameters.AddWithValue("@abv", bottle.ABV);
-        //        command.Parameters.AddWithValue("@taste_code", bottle.Taste.TasteCode);
-        //        command.Parameters.AddWithValue("@description", bottle.Description);
-        //        command.Parameters.AddWithValue("@age", bottle.Age);
-        //        command.Parameters.AddWithValue("@selectedBottle", bracode);
-        //        command.ExecuteNonQuery();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
 
-        //        new Exception("error with Add bottle " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //    }
-        //    return false;
-
-
-        //}
 
         //update bottle price
         public static bool UpdateBottlePriceDB(double price, int barcode)
@@ -175,10 +139,6 @@ namespace DAL
 
 
         }
-
-
-
-
 
         ///get all users with each of user orders
         public static IEnumerable<UserSummary> GetAllUsers()
@@ -284,57 +244,7 @@ namespace DAL
             }
             return null;
         }
-        //get all orders of all users
-        //public static IEnumerable<DetailedOrder> GetAllOrdersByUser()
-        //{
-        //    SqlDataReader reader = null;
-        //    List<DetailedOrder> ordersSummary = new List<DetailedOrder>();
-        //    List<int> userIds = new List<int>();
-        //    try
-        //    {
-        //        con.Open();
-        //        sqlString = "exec get_orders_by_user";
-        //        command = new SqlCommand(sqlString, con);
-        //        reader = command.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            int userId = (int)reader["user_id"];
-        //            userIds.Add(userId);
-        //            DetailedOrder detailedOrder = new DetailedOrder(userId, (string)reader["first_name"]
-        //                , (int)reader["order_code"], (DateTime)reader["date"], (int)reader["qty"], (double)reader["total"]);
-
-        //            ordersSummary.Add(detailedOrder);
-
-
-
-        //        }
-
-        //        reader.Close();
-        //        con.Close();
-        //        for (int i = 0; i < userIds.Count; i++)
-        //        {
-        //            ordersSummary[i].UserOrders = (List<Order>)GetOrdersActionPerUser(userIds[i]);
-        //        }
-        //        return ordersSummary;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        new InvalidOperationException("error in ExcNQ DAL " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        reader.Close();
-        //        con.Close();
-        //    }
-        //    return null;
-        //}
-
-
-
-
-
-
+       
 
     }
 }

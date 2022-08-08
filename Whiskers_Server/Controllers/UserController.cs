@@ -11,7 +11,7 @@ namespace Whiskers_Server.Controllers
    
     public class UserController : ApiController
     {
-        
+        //sign up a user
         public IHttpActionResult Post([FromBody]User user)
         {
             try
@@ -29,6 +29,7 @@ namespace Whiskers_Server.Controllers
                 return BadRequest(e.Message);
             }
         }
+        //login a user
         [Route("api/User/login")]
         public IHttpActionResult Post([FromBody] UserLoginDetails value)
         {
@@ -48,7 +49,7 @@ namespace Whiskers_Server.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        //get a specific user orders
         [Route("api/User/{userId:int}")]
         public IHttpActionResult Get(int userId)
         {
@@ -67,6 +68,7 @@ namespace Whiskers_Server.Controllers
                 return BadRequest(e.Message);
             }
         }
+        //buy cart of specific user
         [Route("api/User/order")]
         public IHttpActionResult PostOrder([FromBody]NewOrder order)
         {

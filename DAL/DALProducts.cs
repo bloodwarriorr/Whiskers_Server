@@ -19,6 +19,7 @@ namespace DAL
         {
             con = new SqlConnection(strCon);
         }
+        //get all bottles from db
         public static IEnumerable<Bottle> GetAllBottles()
         {
             SqlDataReader reader = null;
@@ -60,6 +61,7 @@ namespace DAL
             }
             return null;
         }
+        //activate proc to get top five bottles-use for shop carousel
         public static IEnumerable<TopRatedBottle> GetTopFiveBottles() {
             SqlDataReader reader = null;
             List<TopRatedBottle> topFiveBottles = new List<TopRatedBottle>();

@@ -21,7 +21,7 @@ namespace DAL
         {
             con = new SqlConnection(strCon);
         }
-
+        //sign up function
         public static bool SignUpAction(User user)
         {
             sqlString = @"insert [dbo].[Users]([email],[first_name],[Last_Name],[password]) 
@@ -50,7 +50,7 @@ namespace DAL
 
 
         }
-
+        //login function
         public static User LoginAction(UserLoginDetails details)
         {
 
@@ -101,7 +101,7 @@ namespace DAL
 
 
         }
-
+        //get orders per logged in user
         public static IEnumerable<Order> GetOrdersAction(int userId)
         {
 
@@ -165,7 +165,7 @@ namespace DAL
             }
             return null;
         }
-
+        //make a purchase for specific user
         public static object AddOrderAction(int userId)
         {
             DateTime orderDate = DateTime.Now;
@@ -196,6 +196,7 @@ namespace DAL
             return null;
 
         }
+        //get a order code in order to assign items to specific order
         private static int GetOrderCode(DateTime orderDate, int userId)
         {
             SqlDataReader reader = null;
@@ -205,7 +206,7 @@ namespace DAL
             {
 
                 command.Parameters.AddWithValue("@userId", userId);
-                //command.Parameters.AddWithValue("@date", orderDate);
+               
                 reader = command.ExecuteReader();
                 if (reader.Read())
                 {
@@ -223,15 +224,10 @@ namespace DAL
             }
             return -1;
         }
+        //help method for assigning items into a specific order of a user-fill in order data
         private static void InsertIntoOrderItems(List<Order_Item> items, int order_code)
         {
-            //int index1 = 0;
-            //List<string> barcodes = items.Keys.ToList();
-            //sqlString = @"insert [dbo].[order_items]([order_code],[barcode],[qty]) 
-            //values (@order_code,@barcode,@qty)";
-            //command = new SqlCommand(sqlString, con);
-            //command.Parameters.AddWithValue("@barcode", Convert.ToInt32(barcodes[index1]));
-            //command.Parameters.AddWithValue("@qty", items[barcodes[index1]]);
+            
             sqlString = @"insert [dbo].[order_items]([barcode],[order_code],[qty],[brand_code],[brand_name],[bottle_name],[price],[image])
             values(@barcode,@order_code,@qty,@brandCode,@brandName,@bottleName,@price,@image)";
          
@@ -261,21 +257,7 @@ namespace DAL
                     command.ExecuteNonQuery();
                 }
               
-                //command.Parameters.AddWithValue("@order_code", order_code);
-                //while (index1 < barcodes.Count())
-                //{
-
-
-                //    command.ExecuteNonQuery();
-                //    index1++;
-                //    if (index1 == barcodes.Count())
-                //    {
-                //        break;
-                //    }
-                //    command.Parameters["@barcode"].Value = Convert.ToInt32(barcodes[index1]);
-                //    command.Parameters["@qty"].Value = items[barcodes[index1]];
-                //}
-
+        
 
             }
             catch (Exception ex)
@@ -286,6 +268,7 @@ namespace DAL
 
 
         }
+        //add order-make a purchase of a user
         public static bool AddOrderAction(NewOrder order)
         {
 

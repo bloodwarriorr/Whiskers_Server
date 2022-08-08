@@ -10,6 +10,7 @@ namespace Whiskers_Server.Controllers
 {
     public class ProductsController : ApiController
     {
+        //get all bottles
         [Route("api/Products/Bottles")]
         public IHttpActionResult Get()
         {
@@ -29,7 +30,7 @@ namespace Whiskers_Server.Controllers
             }
         }
 
-
+        //get top five bottles
         [Route("api/Products/TopFiveBottles")]
         public IHttpActionResult GetTopFiveBottles()
         {

@@ -8,10 +8,12 @@ namespace BAL
 {
     public static class BLLProducts
     {
+        //get all bottles from db-activate product dal function
         public static IEnumerable<Bottle> GetAllBottlesAction()
         {
             return DALProducts.GetAllBottles();
         }
+        //get top five bottles from db-activate product dal function
         public static IEnumerable<TopRatedBottle> GetTopFiveBottlesAction()
         {
             return DALProducts.GetTopFiveBottles();

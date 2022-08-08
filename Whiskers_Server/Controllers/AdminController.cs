@@ -83,9 +83,7 @@ namespace Whiskers_Server.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-
-
+        //get all users controller
         [Route("api/Admin/Users")]
         public IHttpActionResult Get()
         {
@@ -105,23 +103,5 @@ namespace Whiskers_Server.Controllers
             }
         }
 
-        //[Route("api/Admin/UserOrders")]
-        //public IHttpActionResult GetUserOrders()
-        //{
-        //    try
-        //    {
-        //        IEnumerable<DetailedOrder> ordersSummary = BLLAdmin.GetAllOrdersPerUserAction();
-        //        if (ordersSummary == null)
-        //        {
-        //            return Content(HttpStatusCode.NotFound, $"There are no orders yet!");
-        //        }
-
-        //        return Ok(ordersSummary);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
     }
 }

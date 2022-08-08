@@ -9,22 +9,22 @@ namespace BAL
 {
     public static class BLLUsers
     {
+        //activate register function in user dal side
         public static bool RegisterUser(User user)
-        {
-            //code security/ roles / algorithm / 
+        { 
             return DALUsers.SignUpAction(user);
         }
-
+        //activate login function in user dal side
         public static User LoginUser(UserLoginDetails details)
         {
-            //code security/ roles / algorithm / 
             return DALUsers.LoginAction(details);
         }
+        //pull orders from db function in user dal side
         public static IEnumerable<Order> GetOrdersByUser(int userId)
         {
-            //code security/ roles / algorithm / 
             return DALUsers.GetOrdersAction(userId);
         }
+        //make a purchase-update db fields
         public static bool BuyCart(NewOrder order) { 
 
             return DALUsers.AddOrderAction(order);
