@@ -166,38 +166,40 @@ namespace DAL
             return null;
         }
         //make a purchase for specific user
-        public static object AddOrderAction(int userId)
-        {
-            DateTime orderDate = DateTime.Now;
-            sqlString = @"exec create_order @date,@userId";
-            command = new SqlCommand(sqlString, con);
-            try
-            {
-                con.Open();
-                command.Parameters.AddWithValue("@userId", userId);
-                command.Parameters.AddWithValue("@date", orderDate);
-                var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
-                returnParameter.Direction = ParameterDirection.ReturnValue;
+        //public static object AddOrderAction(int userId)
+        //{
+        //    DateTime orderDate = DateTime.Now;
+        //    sqlString = @"exec create_order @date,@userId";
+        //    command = new SqlCommand(sqlString, con);
+        //    try
+        //    {
+        //        con.Open();
+        //        command.Parameters.AddWithValue("@userId", userId);
+        //        command.Parameters.AddWithValue("@date", orderDate);
+        //        var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
+        //        returnParameter.Direction = ParameterDirection.ReturnValue;
 
-                command.ExecuteNonQuery();
-                var result = returnParameter.Value;
+        //        command.ExecuteNonQuery();
+        //        var result = returnParameter.Value;
 
-                return result;
-            }
-            catch (Exception ex)
-            {
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                new Exception("error with register " + ex.Message);
-            }
-            finally
-            {
-                con.Close();
-            }
-            return null;
+        //        new Exception("error with register " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //    return null;
 
-        }
+        //}
+
+
         //get a order code in order to assign items to specific order
-        private static int GetOrderCode(DateTime orderDate, int userId)
+        private static int GetOrderCode(int userId)
         {
             SqlDataReader reader = null;
             sqlString = @"SELECT TOP (1) PERCENT order_code FROM dbo.Orders WHERE(user_id = @userId) ORDER BY order_code DESC";
@@ -281,7 +283,7 @@ namespace DAL
                 command.Parameters.AddWithValue("@userId", order.UserId);
                 command.Parameters.AddWithValue("@date", orderDate);
                 command.ExecuteNonQuery();
-                int order_code = GetOrderCode(orderDate, order.UserId);
+                int order_code = GetOrderCode(order.UserId);
                 InsertIntoOrderItems(order.Items, order_code);
 
                 return true;
